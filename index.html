@@ -8,10 +8,15 @@
     @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
     :root {
-        --bg-color: #fffbf5;
+        --bg-color: #fffbf5; /* 米色背景 */
         --text-color: #4a5d4a;
-        --accent-red: #e74c3c;
         --card-border: #4a5d4a;
+        /* 柔和的斑点颜色 */
+        --spot-1: #ffd1dc; /* 粉 */
+        --spot-2: #ccf2ff; /* 蓝 */
+        --spot-3: #e2f0cb; /* 绿 */
+        --spot-4: #ffe5b4; /* 黄 */
+        --spot-5: #e0d6ff; /* 紫 */
     }
 
     body {
@@ -21,146 +26,194 @@
         font-family: 'Patrick Hand', cursive;
         color: var(--text-color);
         height: 100vh;
+        width: 100vw;
+        overflow: hidden; /* 隐藏滚动条，让元素飞出屏幕 */
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: hidden;
-        /* 模拟背景上的彩色斑点 */
-        background-image: 
-            radial-gradient(#ffd1dc 20%, transparent 20%),
-            radial-gradient(#ccf2ff 20%, transparent 20%),
-            radial-gradient(#e2f0cb 20%, transparent 20%),
-            radial-gradient(#ffe5b4 20%, transparent 20%);
-        background-position: 10% 10%, 90% 20%, 20% 80%, 80% 90%;
-        background-size: 100px 100px;
+        position: relative;
     }
 
-    /* 标题区域 */
+    /* ================= 标题区域 ================= */
     header {
         text-align: center;
-        margin-top: 40px;
-        z-index: 10;
+        margin-top: 30px;
+        z-index: 20; /* 保证标题在最上层 */
+        position: relative;
     }
 
     h1 {
-        font-size: 3rem;
+        font-size: 2.8rem;
         margin: 0;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
     }
 
-    .heart {
-        color: var(--accent-red);
-        font-size: 2.5rem;
-    }
+    .heart { color: #e74c3c; }
 
     h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
         margin: 5px 0 0 0;
         font-weight: normal;
         opacity: 0.8;
     }
 
-    /* 主容器 */
-    .container {
-        position: relative;
-        width: 800px;
-        height: 600px;
+    /* ================= 中心卡片区域 ================= */
+    .main-content {
+        flex-grow: 1;
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 15; /* 卡片层级高于背景和大象 */
+        width: 100%;
     }
 
-    /* 中心卡片 */
     .card {
         background: white;
-        border: 4px solid var(--card-border);
-        border-radius: 30px;
-        padding: 30px;
-        width: 280px;
+        border: 3px solid var(--card-border);
+        border-radius: 25px;
+        padding: 25px;
+        width: 260px;
         text-align: center;
         position: relative;
-        box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
-        z-index: 2;
-        animation: float 6s ease-in-out infinite;
+        box-shadow: 5px 5px 0px rgba(74, 93, 74, 0.1);
+        /* 卡片本身轻微浮动 */
+        animation: cardFloat 4s ease-in-out infinite alternate;
     }
 
     .card-title {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
         text-align: left;
     }
 
     .apple-icon {
-        width: 100px;
-        height: 100px;
-        margin: 10px auto;
+        width: 80px;
+        height: auto;
+        margin: 0 auto 15px auto;
         display: block;
     }
 
     .card-text {
-        font-size: 1rem;
-        line-height: 1.4;
-        margin-top: 15px;
+        font-size: 0.95rem;
+        line-height: 1.5;
         color: #555;
     }
 
-    /* 装饰用的小叶子 */
-    .leaf-deco {
+    /* ================= 动态背景斑点 ================= */
+    .floating-spots-container {
         position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 40px;
-        fill: #6b8c42;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none; /* 不影响鼠标交互 */
+        z-index: 1;
     }
 
-    /* 大象通用样式 */
-    .elephant {
+    .spot {
         position: absolute;
-        width: 150px;
+        border-radius: 50%;
+        opacity: 0.6;
+        /* 使用手绘风格的不规则圆角 */
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    /* 定义斑点的动画关键帧 - 随机漂浮 */
+    @keyframes floatMove {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(50px, 50px) rotate(90deg); }
+        50% { transform: translate(0px, 100px) rotate(180deg); }
+        75% { transform: translate(-50px, 50px) rotate(270deg); }
+        100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    /* 不同颜色和位置的斑点 */
+    .s1 { width: 40px; height: 30px; background: var(--spot-1); top: 10%; left: 10%; animation: floatMove 20s infinite linear; }
+    .s2 { width: 30px; height: 35px; background: var(--spot-2); top: 20%; right: 15%; animation: floatMove 25s infinite linear reverse; }
+    .s3 { width: 50px; height: 40px; background: var(--spot-3); bottom: 15%; left: 20%; animation: floatMove 22s infinite linear; }
+    .s4 { width: 35px; height: 35px; background: var(--spot-4); bottom: 25%; right: 10%; animation: floatMove 18s infinite linear reverse; }
+    .s5 { width: 25px; height: 25px; background: var(--spot-5); top: 50%; left: 5%; animation: floatMove 28s infinite linear; }
+    .s6 { width: 45px; height: 30px; background: var(--spot-1); top: 15%; left: 50%; animation: floatMove 24s infinite linear reverse; }
+    .s7 { width: 30px; height: 40px; background: var(--spot-3); bottom: 5%; right: 40%; animation: floatMove 21s infinite linear; }
+
+    /* ================= 动态行走的大象 ================= */
+    .elephants-container {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 10; /* 在斑点之上，卡片之下 */
+    }
+
+    .walking-elephant {
+        position: absolute;
+        width: 120px;
         height: auto;
         opacity: 0.9;
     }
 
-    /* 大象位置定位 */
-    .ele-1 { top: 10%; left: 10%; transform: rotate(10deg); animation: sway 4s infinite alternate; }
-    .ele-2 { top: 15%; right: 10%; transform: scaleX(-1) rotate(-5deg); animation: sway 5s infinite alternate-reverse; }
-    .ele-3 { bottom: 10%; left: 15%; transform: rotate(-5deg); animation: sway 4.5s infinite alternate; }
-    .ele-4 { bottom: 10%; right: 15%; transform: scaleX(-1) rotate(5deg); animation: sway 5.5s infinite alternate-reverse; }
+    /* 大象行走动画关键帧 - 从左走到右 */
+    @keyframes walkRight {
+        from { left: -150px; transform: translateY(0) rotate(-2deg); }
+        to { left: 105vw; transform: translateY(0) rotate(2deg); }
+    }
+    /* 大象行走动画关键帧 - 从右走到左 */
+    @keyframes walkLeft {
+        from { right: -150px; transform: scaleX(-1) translateY(0) rotate(-2deg); }
+        to { right: 105vw; transform: scaleX(-1) translateY(0) rotate(2deg); }
+    }
+
+    /* 大象行走时的上下浮动感 */
+    @keyframes bobbing {
+        0%, 100% { margin-top: 0; }
+        50% { margin-top: -15px; }
+    }
     
-    /* 迷你大象 */
-    .ele-mini {
-        position: absolute;
-        width: 60px;
-        top: 38%;
-        right: 28%;
-        transform: rotate(-15deg);
+    /* 配置每只大象 */
+    .ele-1 {
+        top: 15%;
+        animation: walkRight 35s linear infinite, bobbing 2s ease-in-out infinite;
+    }
+    
+    .ele-2 {
+        top: 60%;
+        animation: walkLeft 40s linear infinite, bobbing 2.5s ease-in-out infinite;
+        animation-delay: -10s; /* 提前开始，避免同时出现 */
     }
 
-    /* 简单的 SVG 填充色 */
-    .svg-ele-body { fill: #b8b8b8; stroke: #4a4a4a; stroke-width: 2; }
-    .svg-apple-body { fill: #ff8fab; stroke: #4a4a4a; stroke-width: 2; }
-    .svg-apple-face { fill: #4a4a4a; }
+    .ele-3 {
+        top: 75%;
+        width: 90px; /* 小一点 */
+        animation: walkRight 45s linear infinite, bobbing 1.8s ease-in-out infinite;
+        animation-delay: -5s;
+        opacity: 0.7;
+    }
+    
+    .ele-4 {
+        top: 25%;
+        width: 100px;
+        animation: walkLeft 38s linear infinite, bobbing 2.2s ease-in-out infinite;
+        animation-delay: -20s;
+    }
 
-    /* 动画 */
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+
+    /* 卡片浮动动画 */
+    @keyframes cardFloat {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-10px); }
     }
-    @keyframes sway {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(5deg); }
+    
+    /* SVG 样式 */
+    .svg-ele-fill { fill: #b8b8b8; }
+    .svg-ele-stroke { stroke: #5a5a5a; stroke-width: 2px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+        h1 { font-size: 2.2rem; }
+        h2 { font-size: 1.5rem; }
+        .card { width: 80%; }
+        .walking-elephant { width: 90px; }
     }
 
-    /* 响应式调整 */
-    @media (max-width: 800px) {
-        .container { width: 100%; height: auto; flex-wrap: wrap; padding-bottom: 50px; }
-        .elephant { position: relative; margin: 20px; top: auto; left: auto; right: auto; bottom: auto; }
-        .ele-mini { display: none; } /* 手机端隐藏小装饰 */
-        .card { order: 5; margin: 40px 0; }
-    }
 </style>
 </head>
 <body>
@@ -170,37 +223,49 @@
         <h2>Our BE</h2>
     </header>
 
-    <div class="container">
-        <div class="elephant ele-1">
-            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
-                <circle cx="35" cy="15" r="2" fill="#333"/>
-                <path d="M10,45 Q5,35 15,25" fill="none" stroke="#4a4a4a" stroke-width="2"/>
-            </svg>
-        </div>
+    <div class="floating-spots-container">
+        <div class="spot s1"></div>
+        <div class="spot s2"></div>
+        <div class="spot s3"></div>
+        <div class="spot s4"></div>
+        <div class="spot s5"></div>
+        <div class="spot s6"></div>
+        <div class="spot s7"></div>
+    </div>
 
-        <div class="elephant ele-2">
-            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
-                <circle cx="35" cy="15" r="2" fill="#333"/>
-            </svg>
-        </div>
+    <div class="elephants-container">
+        <svg style="display: none;">
+            <symbol id="cute-elephant" viewBox="0 0 100 80">
+                 <path class="svg-ele-fill" d="M25,55 C15,45 15,25 15,25 C15,5 45,5 45,5 C75,5 85,25 85,25 C95,25 98,35 98,35 C103,45 93,55 93,55 C93,75 83,75 83,75 L73,75 L73,65 L53,65 L53,75 L33,75 C23,75 25,55 25,55 Z" />
+                 <path class="svg-ele-fill" d="M15,35 C10,25 5,15 5,15 C5,15 -5,25 5,40 C10,50 20,50 20,50" />
+                 <path class="svg-ele-stroke" d="M15,35 C10,25 5,15 5,15 C5,15 -5,25 5,40 C10,50 20,50 20,50"/>
+                 <path class="svg-ele-fill" d="M30,30 C10,30 5,60 30,60 L30,30" />
+                 <path class="svg-ele-stroke" d="M30,30 C10,30 5,60 30,60 L30,30" />
+                 <path class="svg-ele-stroke" d="M25,55 C15,45 15,25 15,25 C15,5 45,5 45,5 C75,5 85,25 85,25 C95,25 98,35 98,35 C103,45 93,55 93,55 C93,75 83,75 83,75 L73,75 L73,65" />
+                 <path class="svg-ele-stroke" d="M53,65 L53,75 L33,75 C23,75 25,55 25,55" />
+                 <circle cx="40" cy="25" r="2" fill="#333"/>
+                 <path class="svg-ele-stroke" d="M93,35 C98,30 100,35 98,40" />
+            </symbol>
+        </svg>
 
+        <svg class="walking-elephant ele-1"><use href="#cute-elephant"/></svg>
+        <svg class="walking-elephant ele-2"><use href="#cute-elephant"/></svg>
+        <svg class="walking-elephant ele-3"><use href="#cute-elephant"/></svg>
+        <svg class="walking-elephant ele-4"><use href="#cute-elephant"/></svg>
+    </div>
+
+    <div class="main-content">
         <div class="card">
-            <svg class="leaf-deco" viewBox="0 0 50 30">
-                <path d="M25,30 Q10,0 0,10 T25,30 M25,30 Q40,0 50,10 T25,30" fill="#6b8c42"/>
-            </svg>
-
             <div class="card-title">a elephants</div>
             
             <svg class="apple-icon" viewBox="0 0 100 100">
-                <path class="svg-apple-body" d="M50,20 Q20,10 20,50 Q20,90 50,90 Q80,90 80,50 Q80,10 50,20" />
-                <path d="M50,20 Q50,0 60,5" fill="none" stroke="#6b8c42" stroke-width="4"/>
-                <circle cx="35" cy="55" r="4" class="svg-apple-face"/>
-                <circle cx="65" cy="55" r="4" class="svg-apple-face"/>
-                <path d="M45,65 Q50,70 55,65" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="25" cy="60" r="5" fill="#ffccd5" opacity="0.6"/>
-                <circle cx="75" cy="60" r="5" fill="#ffccd5" opacity="0.6"/>
+                <path d="M50,25 C20,15 20,55 20,55 C20,95 50,95 50,95 C80,95 80,55 80,55 C80,15 50,25 50,25" fill="#ff8fab" stroke="#5a5a5a" stroke-width="2"/>
+                <path d="M50,25 C50,5 60,10 60,10" fill="none" stroke="#6b8c42" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="38" cy="60" r="3" fill="#333"/>
+                <circle cx="62" cy="60" r="3" fill="#333"/>
+                <path d="M45,70 Q50,75 55,70" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="28" cy="65" r="5" fill="#ffccd5" opacity="0.6"/>
+                <circle cx="72" cy="65" r="5" fill="#ffccd5" opacity="0.6"/>
             </svg>
 
             <div class="card-text">
@@ -209,27 +274,6 @@
                 Courage pour les next steps !<br>
                 On t'embrasse fort ! 😘
             </div>
-        </div>
-
-        <div class="ele-mini">
-            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z" />
-                <circle cx="35" cy="15" r="2" fill="#333"/>
-            </svg>
-        </div>
-
-        <div class="elephant ele-3">
-            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
-                <circle cx="35" cy="15" r="2" fill="#333"/>
-            </svg>
-        </div>
-
-        <div class="elephant ele-4">
-            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
-                <circle cx="35" cy="15" r="2" fill="#333"/>
-            </svg>
         </div>
     </div>
 
