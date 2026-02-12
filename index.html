@@ -1,181 +1,237 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Bérengère 🍎</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <style>
-        body { margin: 0; padding: 0; overflow: hidden; background-color: #f7f9f2; cursor: none; }
-        #header {
-            position: absolute;
-            top: 10%;
-            width: 100%;
-            text-align: center;
-            font-family: 'Comic Sans MS', 'Helvetica Neue', cursive;
-            pointer-events: none;
-            z-index: 10;
-        }
-        h1 { color: #4a6b5c; font-size: 42px; margin: 0; }
-        p { color: #8a9b8e; font-size: 20px; margin-top: 5px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Bérengère - Our BE</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+    :root {
+        --bg-color: #fffbf5;
+        --text-color: #4a5d4a;
+        --accent-red: #e74c3c;
+        --card-border: #4a5d4a;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+        font-family: 'Patrick Hand', cursive;
+        color: var(--text-color);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        /* 模拟背景上的彩色斑点 */
+        background-image: 
+            radial-gradient(#ffd1dc 20%, transparent 20%),
+            radial-gradient(#ccf2ff 20%, transparent 20%),
+            radial-gradient(#e2f0cb 20%, transparent 20%),
+            radial-gradient(#ffe5b4 20%, transparent 20%);
+        background-position: 10% 10%, 90% 20%, 20% 80%, 80% 90%;
+        background-size: 100px 100px;
+    }
+
+    /* 标题区域 */
+    header {
+        text-align: center;
+        margin-top: 40px;
+        z-index: 10;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .heart {
+        color: var(--accent-red);
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+        margin: 5px 0 0 0;
+        font-weight: normal;
+        opacity: 0.8;
+    }
+
+    /* 主容器 */
+    .container {
+        position: relative;
+        width: 800px;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 中心卡片 */
+    .card {
+        background: white;
+        border: 4px solid var(--card-border);
+        border-radius: 30px;
+        padding: 30px;
+        width: 280px;
+        text-align: center;
+        position: relative;
+        box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+        z-index: 2;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .apple-icon {
+        width: 100px;
+        height: 100px;
+        margin: 10px auto;
+        display: block;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        line-height: 1.4;
+        margin-top: 15px;
+        color: #555;
+    }
+
+    /* 装饰用的小叶子 */
+    .leaf-deco {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        fill: #6b8c42;
+    }
+
+    /* 大象通用样式 */
+    .elephant {
+        position: absolute;
+        width: 150px;
+        height: auto;
+        opacity: 0.9;
+    }
+
+    /* 大象位置定位 */
+    .ele-1 { top: 10%; left: 10%; transform: rotate(10deg); animation: sway 4s infinite alternate; }
+    .ele-2 { top: 15%; right: 10%; transform: scaleX(-1) rotate(-5deg); animation: sway 5s infinite alternate-reverse; }
+    .ele-3 { bottom: 10%; left: 15%; transform: rotate(-5deg); animation: sway 4.5s infinite alternate; }
+    .ele-4 { bottom: 10%; right: 15%; transform: scaleX(-1) rotate(5deg); animation: sway 5.5s infinite alternate-reverse; }
+    
+    /* 迷你大象 */
+    .ele-mini {
+        position: absolute;
+        width: 60px;
+        top: 38%;
+        right: 28%;
+        transform: rotate(-15deg);
+    }
+
+    /* 简单的 SVG 填充色 */
+    .svg-ele-body { fill: #b8b8b8; stroke: #4a4a4a; stroke-width: 2; }
+    .svg-apple-body { fill: #ff8fab; stroke: #4a4a4a; stroke-width: 2; }
+    .svg-apple-face { fill: #4a4a4a; }
+
+    /* 动画 */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    @keyframes sway {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(5deg); }
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 800px) {
+        .container { width: 100%; height: auto; flex-wrap: wrap; padding-bottom: 50px; }
+        .elephant { position: relative; margin: 20px; top: auto; left: auto; right: auto; bottom: auto; }
+        .ele-mini { display: none; } /* 手机端隐藏小装饰 */
+        .card { order: 5; margin: 40px 0; }
+    }
+</style>
 </head>
 <body>
-    <div id="header">
-        <h1>To Bérengère ❤️</h1>
-        <p>Our BE</p>
+
+    <header>
+        <h1>To Bérengère <span class="heart">♥</span></h1>
+        <h2>Our BE</h2>
+    </header>
+
+    <div class="container">
+        <div class="elephant ele-1">
+            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
+                <circle cx="35" cy="15" r="2" fill="#333"/>
+                <path d="M10,45 Q5,35 15,25" fill="none" stroke="#4a4a4a" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <div class="elephant ele-2">
+            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
+                <circle cx="35" cy="15" r="2" fill="#333"/>
+            </svg>
+        </div>
+
+        <div class="card">
+            <svg class="leaf-deco" viewBox="0 0 50 30">
+                <path d="M25,30 Q10,0 0,10 T25,30 M25,30 Q40,0 50,10 T25,30" fill="#6b8c42"/>
+            </svg>
+
+            <div class="card-title">a elephants</div>
+            
+            <svg class="apple-icon" viewBox="0 0 100 100">
+                <path class="svg-apple-body" d="M50,20 Q20,10 20,50 Q20,90 50,90 Q80,90 80,50 Q80,10 50,20" />
+                <path d="M50,20 Q50,0 60,5" fill="none" stroke="#6b8c42" stroke-width="4"/>
+                <circle cx="35" cy="55" r="4" class="svg-apple-face"/>
+                <circle cx="65" cy="55" r="4" class="svg-apple-face"/>
+                <path d="M45,65 Q50,70 55,65" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="25" cy="60" r="5" fill="#ffccd5" opacity="0.6"/>
+                <circle cx="75" cy="60" r="5" fill="#ffccd5" opacity="0.6"/>
+            </svg>
+
+            <div class="card-text">
+                Que ton avenir soit remplie de succès et de joie ! 💛<br>
+                Nous te souhaitons tout le meilleur pour la suite.<br>
+                Courage pour les next steps !<br>
+                On t'embrasse fort ! 😘
+            </div>
+        </div>
+
+        <div class="ele-mini">
+            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z" />
+                <circle cx="35" cy="15" r="2" fill="#333"/>
+            </svg>
+        </div>
+
+        <div class="elephant ele-3">
+            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
+                <circle cx="35" cy="15" r="2" fill="#333"/>
+            </svg>
+        </div>
+
+        <div class="elephant ele-4">
+            <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-ele-body" d="M20,50 Q10,40 10,20 Q10,0 40,0 Q70,0 80,20 Q90,20 95,30 Q100,40 90,50 Q90,70 80,70 L70,70 L70,60 L50,60 L50,70 L30,70 Q20,70 20,50 Z M10,30 Q5,20 0,10" />
+                <circle cx="35" cy="15" r="2" fill="#333"/>
+            </svg>
+        </div>
     </div>
 
-<script>
-let elephants = [];
-let apples = [];
-let wishes = [
-    "Nous t'aimons ! ❤️",
-    "Bonne continuation !",
-    "Tu vas nous manquer !",
-    "Meilleurs voeux !",
-    "Merci pour tout, Bérengère !",
-    "Une nouvelle aventure t'attend !",
-    "Garde ton sourire ! 🍎",
-    "On reste en contact !"
-];
-
-function setup() {
-    createCanvas(windowWidth, windowHeight);
-    // 初始化10只奔跑的小象
-    for (let i = 0; i < 10; i++) {
-        elephants.push(new Elephant());
-    }
-}
-
-function draw() {
-    background('#f7f9f2'); 
-
-    // 绘制苹果祝福卡
-    for (let i = apples.length - 1; i >= 0; i--) {
-        apples[i].display();
-        apples[i].update();
-        if (apples[i].isFinished()) apples.splice(i, 1);
-    }
-
-    // 绘制小象
-    for (let e of elephants) {
-        e.run();
-        e.display();
-    }
-
-    // 自定义棕色鼠标
-    fill('#8b5e3c');
-    noStroke();
-    circle(mouseX, mouseY, 15);
-}
-
-function mousePressed() {
-    // 检查是否点击了小象
-    for (let i = elephants.length - 1; i >= 0; i--) {
-        let d = dist(mouseX, mouseY, elephants[i].pos.x, elephants[i].pos.y);
-        if (d < 40) {
-            // 点击处生成苹果
-            apples.push(new AppleCard(elephants[i].pos.x, elephants[i].pos.y));
-            // 小象瞬间移动到随机位置重新跑
-            elephants[i].pos = createVector(random(width), random(height));
-        }
-    }
-}
-
-class Elephant {
-    constructor() {
-        this.pos = createVector(random(width), random(height));
-        this.vel = p5.Vector.random2D().mult(random(1, 3));
-        this.w = 40;
-    }
-
-    run() {
-        this.pos.add(this.vel);
-        if (this.pos.x < 0 || this.pos.x > width) this.vel.x *= -1;
-        if (this.pos.y < 0 || this.pos.y > height) this.vel.y *= -1;
-    }
-
-    display() {
-        push();
-        translate(this.pos.x, this.pos.y);
-        if (this.vel.x > 0) scale(-1, 1); // 根据方向转向
-        
-        fill('#8b5e3c');
-        stroke('#3d2b1f');
-        strokeWeight(1.5);
-        // 身体
-        ellipse(0, 0, 45, 30);
-        // 象鼻
-        noFill();
-        arc(22, 5, 20, 20, PI + HALF_PI, TWO_PI);
-        // 腿
-        line(-10, 15, -10, 22);
-        line(10, 15, 10, 22);
-        // 眼
-        fill(0); noStroke();
-        circle(12, -5, 3);
-        pop();
-    }
-}
-
-class AppleCard {
-    constructor(x, y) {
-        this.pos = createVector(x, y);
-        this.wish = random(wishes);
-        this.timer = 150; // 显示时长
-        this.scale = 0;
-    }
-
-    update() {
-        if (this.scale < 1) this.scale += 0.1;
-        this.timer--;
-    }
-
-    display() {
-        push();
-        translate(this.pos.x, this.pos.y);
-        scale(this.scale);
-        
-        // 绘制手绘苹果
-        fill('#ff6b6b');
-        stroke('#3d2b1f');
-        strokeWeight(3);
-        // 苹果左半边和右半边
-        beginShape();
-        curveVertex(0, 50);
-        curveVertex(-50, 20);
-        curveVertex(-40, -40);
-        curveVertex(0, -30);
-        curveVertex(40, -40);
-        curveVertex(50, 20);
-        curveVertex(0, 50);
-        endShape(CLOSE);
-        
-        // 苹果茎和叶子
-        stroke('#4a6b5c');
-        line(0, -30, 0, -45);
-        fill('#a3c4f3'); // 叶子用点蓝色点缀
-        ellipse(10, -40, 15, 8);
-        
-        // 祝福语
-        textAlign(CENTER, CENTER);
-        noStroke();
-        fill(255);
-        textSize(16);
-        textStyle(BOLD);
-        text(this.wish, 0, 5);
-        pop();
-    }
-
-    isFinished() {
-        return this.timer < 0;
-    }
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-}
-</script>
 </body>
 </html>
