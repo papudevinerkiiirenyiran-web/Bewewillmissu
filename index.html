@@ -136,3 +136,121 @@
         .pos-dog { width: 300px; margin-left: -150px; }
         .pos-blue-flower { width: 100px; top: 10%; left: 5%; }
         .pos-butterfly { width: 120px; top: 8%; right: 5%; }
+        .pos-yellow-flower { width: 100px; bottom: 15%; right: 5%; }
+        .pos-grass { width: 120px; bottom: 10%; left: 5%; }
+    }
+</style>
+</head>
+<body>
+
+    <div class="sprinkles-container">
+        <div class="sprinkle sp-pink" style="top:10%; left:20%; transform: rotate(45deg);"></div>
+        <div class="sprinkle sp-blue" style="top:5%; left:60%; transform: rotate(-30deg);"></div>
+        <div class="sprinkle sp-yellow" style="top:25%; left:90%; transform: rotate(60deg);"></div>
+        <div class="sprinkle sp-green" style="top:40%; left:10%; transform: rotate(15deg);"></div>
+        <div class="sprinkle sp-purple" style="top:80%; left:5%; transform: rotate(-45deg);"></div>
+        <div class="sprinkle sp-pink" style="top:70%; left:85%; transform: rotate(90deg);"></div>
+        <div class="sprinkle sp-blue" style="top:90%; left:40%; transform: rotate(20deg);"></div>
+        <div class="sprinkle sp-yellow" style="top:15%; left:45%; transform: rotate(-10deg);"></div>
+        <div class="sprinkle sp-green" style="top:60%; left:75%; transform: rotate(30deg);"></div>
+        <div class="sprinkle sp-purple" style="top:30%; left:30%; transform: rotate(120deg);"></div>
+        <div class="sprinkle sp-pink" style="top:55%; left:95%; transform: rotate(10deg);"></div>
+        <div class="sprinkle sp-blue" style="top:85%; left:20%; transform: rotate(70deg);"></div>
+    </div>
+
+    <div class="graphics-layer">
+        
+        <div class="graphic-item pos-blue-flower hover-wiggle">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 35 C40 10 20 20 25 45 C10 40 10 60 25 65 C15 85 35 85 40 70 C50 90 70 80 65 65 C85 65 85 45 65 40 C70 20 55 15 50 35 Z" 
+                      stroke="#89c2fa" stroke-width="5" fill="none" class="crayon-stroke"/>
+                <path d="M50 38 C42 18 25 25 28 48 C15 45 15 62 28 66 C20 82 38 82 42 70 C50 85 68 78 63 65 C80 65 80 48 63 45 C68 28 55 22 50 38 Z" 
+                      fill="#dbeeff" class="crayon-fill"/>
+                <circle cx="48" cy="55" r="10" fill="#ff99aa" />
+                <circle cx="48" cy="55" r="10" stroke="#ff748c" stroke-width="2" stroke-dasharray="2 2"/>
+                <circle cx="45" cy="52" r="1" fill="#fff"/>
+                <circle cx="51" cy="54" r="1" fill="#fff"/>
+                <circle cx="47" cy="58" r="1" fill="#fff"/>
+            </svg>
+        </div>
+
+        <div class="graphic-item pos-butterfly hover-float">
+            <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M60 50 C40 20 10 20 10 50 C10 80 50 80 60 60 C70 80 110 80 110 50 C110 20 80 20 60 50" 
+                      fill="#ffaec0" class="crayon-fill"/>
+                <path d="M60 50 C40 20 10 20 10 50 C10 80 50 80 60 60 C70 80 110 80 110 50 C110 20 80 20 60 50" 
+                      stroke="#ff8fab" stroke-width="3" stroke-dasharray="5 5" class="crayon-stroke"/>
+                <circle cx="25" cy="40" r="4" fill="#e74c3c" opacity="0.6"/>
+                <circle cx="35" cy="60" r="3" fill="#e74c3c" opacity="0.6"/>
+                <circle cx="95" cy="40" r="4" fill="#e74c3c" opacity="0.6"/>
+                <circle cx="85" cy="60" r="3" fill="#e74c3c" opacity="0.6"/>
+                <ellipse cx="60" cy="50" rx="6" ry="25" fill="#a89f91" />
+                <circle cx="60" cy="25" r="10" fill="#eee" stroke="#a89f91" stroke-width="2"/>
+                <path d="M55 18 Q45 5 40 10" stroke="#e74c3c" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M65 18 Q75 5 80 10" stroke="#e74c3c" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M56 25 Q60 28 64 25" stroke="#333" stroke-width="1" fill="none"/> <circle cx="55" cy="28" r="1" fill="#ffb7c5"/>
+                <circle cx="65" cy="28" r="1" fill="#ffb7c5"/>
+            </svg>
+        </div>
+
+        <div class="graphic-item pos-dog dog-run">
+            <svg viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M160 30 Q180 20 185 35 Q170 50 160 40" fill="#8d4004" class="crayon-fill"/>
+                
+                <path d="M40 50 Q40 30 60 35 L140 25 Q170 20 170 50 Q170 70 150 65 L60 75 Q40 80 40 50" 
+                      fill="#e0a365" class="crayon-fill" /> <path d="M40 50 Q40 30 60 35 L140 25 Q170 20 170 50 Q170 70 150 65 L60 75 Q40 80 40 50" 
+                      stroke="#d69255" stroke-width="2" stroke-dasharray="3 3" /> 
+
+                <path d="M45 35 Q30 30 25 45 Q35 55 50 45" fill="#8d4004" class="crayon-fill"/>
+                
+                <path d="M55 70 Q50 85 40 85" stroke="#e0a365" stroke-width="12" stroke-linecap="round"/>
+                <path d="M70 73 Q75 85 85 80" stroke="#e0a365" stroke-width="12" stroke-linecap="round"/>
+                <path d="M140 65 Q135 75 125 75" stroke="#e0a365" stroke-width="12" stroke-linecap="round"/>
+                <path d="M155 60 Q165 70 175 65" stroke="#e0a365" stroke-width="12" stroke-linecap="round"/>
+
+                <circle cx="35" cy="55" r="4" fill="#6d1e1e"/>
+                <path d="M45 48 Q48 50 51 48" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="graphic-item pos-yellow-flower hover-sway">
+            <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 70 Q50 110 50 120" stroke="#7cbd6e" stroke-width="6" stroke-linecap="round"/>
+                <path d="M50 90 Q30 80 20 90" stroke="#7cbd6e" stroke-width="6" stroke-linecap="round" fill="none"/>
+                <path d="M50 100 Q70 90 80 100" stroke="#7cbd6e" stroke-width="6" stroke-linecap="round" fill="none"/>
+                
+                <g fill="#ffeb3b" opacity="0.9">
+                    <circle cx="50" cy="20" r="10" />
+                    <circle cx="70" cy="30" r="10" />
+                    <circle cx="75" cy="50" r="10" />
+                    <circle cx="70" cy="70" r="10" />
+                    <circle cx="50" cy="80" r="10" />
+                    <circle cx="30" cy="70" r="10" />
+                    <circle cx="25" cy="50" r="10" />
+                    <circle cx="30" cy="30" r="10" />
+                </g>
+                <circle cx="50" cy="50" r="18" fill="#fff" stroke="#ffeb3b" stroke-width="2"/>
+                <circle cx="45" cy="48" r="2" fill="#333"/>
+                <circle cx="55" cy="48" r="2" fill="#333"/>
+                <path d="M45 55 Q50 60 55 55" stroke="#e74c3c" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="graphic-item pos-grass hover-float">
+            <svg viewBox="0 0 100 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 80 Q5 40 0 50" stroke="#8ac976" stroke-width="8" stroke-linecap="round"/>
+                <path d="M30 80 Q25 20 15 30" stroke="#8ac976" stroke-width="8" stroke-linecap="round"/>
+                <path d="M40 80 Q50 30 60 40" stroke="#8ac976" stroke-width="8" stroke-linecap="round"/>
+                <path d="M80 70 C75 70 75 55 80 50 C85 55 85 70 80 70 Z" fill="#89c2fa" opacity="0.8"/>
+            </svg>
+        </div>
+
+    </div>
+
+    <div class="text-container">
+        <h1>To Bérengère <span class="heart">❤</span></h1>
+        <h2>Our BE</h2>
+    </div>
+
+</body>
+</html>
